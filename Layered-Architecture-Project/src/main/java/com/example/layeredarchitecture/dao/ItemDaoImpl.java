@@ -2,7 +2,6 @@ package com.example.layeredarchitecture.dao;
 
 import com.example.layeredarchitecture.db.DBConnection;
 import com.example.layeredarchitecture.model.ItemDTO;
-import javafx.fxml.FXML;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -99,7 +98,35 @@ public class ItemDaoImpl implements ItemDAO{
     }
 
     @Override
-    public void findItems(){
+    public ItemDTO findItems(String code) throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.getDbConnection().getConnection();
+        PreparedStatement pstm = connection.prepareStatement("SELECT * FROM Item WHERE code=?");
+        pstm.setString(1, code);
+        ResultSet rst = pstm.executeQuery();
+        rst.next();
+        return new ItemDTO(code, rst.getString("description"), rst.getBigDecimal("unitPrice"), rst.getInt("qtyOnHand"));
+    }
 
+    @Override
+    public ItemDTO search(String newItemCode) throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.getDbConnection().getConnection();
+        PreparedStatement pstm = connection.prepareStatement("SELECT * FROM Item WHERE code=?");
+        pstm.setString(1, newItemCode + "");
+        ResultSet rst = pstm.executeQuery();
+        rst.next();
+        ItemDTO item = new ItemDTO(newItemCode + "", rst.getString("description"), rst.getBigDecimal("unitPrice"), rst.getInt("qtyOnHand"));
+        return item;
+    }
+
+    @Override
+    public int searchAndUpdate(ItemDTO item) throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.getDbConnection().getConnection();
+        PreparedStatement pstm = connection.prepareStatement("UPDATE Item SET description=?, unitPrice=?, qtyOnHand=? WHERE code=?");
+        pstm.setString(1, item.getDescription());
+        pstm.setBigDecimal(2, item.getUnitPrice());
+        pstm.setInt(3, item.getQtyOnHand());
+        pstm.setString(4, item.getCode());
+
+        return pstm.executeUpdate();
     }
 }

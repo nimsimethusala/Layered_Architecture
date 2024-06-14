@@ -20,4 +20,6 @@ public interface CustomerDAO {
     public String newId() throws SQLException, ClassNotFoundException;
 
     public ArrayList<String> getAllId() throws SQLException, ClassNotFoundException;
+
+    public CustomerDTO search(String newValue) throws SQLException, ClassNotFoundException;
 }

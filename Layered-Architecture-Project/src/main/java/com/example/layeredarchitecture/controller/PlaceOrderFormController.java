@@ -394,7 +394,7 @@ public class PlaceOrderFormController {
                     return false;
                 }
 
-//                //Search & Update Item
+                //Search & Update Item
                 ItemDTO item = findItem(detail.getItemCode());
                 item.setQtyOnHand(item.getQtyOnHand() - detail.getQty());
 

@@ -271,7 +271,6 @@ public class ManageCustomersFormController {
             int newCustomerId = Integer.parseInt(id.replace("C", "")) + 1;
             return String.format("C00-%03d", newCustomerId);
         }
-
     }
 
     private String getLastCustomerId() {

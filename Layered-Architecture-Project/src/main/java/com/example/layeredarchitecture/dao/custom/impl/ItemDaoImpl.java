@@ -119,7 +119,7 @@ public class ItemDaoImpl implements ItemDAO {
         pstm.setString(1, code);
         ResultSet rst = pstm.executeQuery();*/
 
-        ResultSet rst = SQLUtil.execute("SELECT * FROM Item WHERE code=?");
+        ResultSet rst = SQLUtil.execute("SELECT * FROM Item WHERE code=?", code);
         rst.next();
         return new ItemDTO(code, rst.getString("description"), rst.getBigDecimal("unitPrice"), rst.getInt("qtyOnHand"));
     }
@@ -147,6 +147,8 @@ public class ItemDaoImpl implements ItemDAO {
         pstm.setString(4, item.getCode());
         return pstm.executeUpdate() > 0;*/
 
-        return SQLUtil.execute("UPDATE Item SET description=?, unitPrice=?, qtyOnHand=? WHERE code=?");
+        boolean b =  SQLUtil.execute("UPDATE Item SET description=?, unitPrice=?, qtyOnHand=? WHERE code=?", item.getDescription(), item.getUnitPrice(), item.getQtyOnHand(), item.getCode());
+        System.out.println("item" + b);
+        return b;
     }
 }

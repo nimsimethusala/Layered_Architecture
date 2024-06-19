@@ -51,7 +51,6 @@ public class OrderBoImpl implements OrderBo{
         return orderDAO.save(customer);
     }
 
-
     @Override
     public void updateOrder(OrderDTO customer) throws SQLException, ClassNotFoundException {
         orderDAO.update(customer);

@@ -16,7 +16,6 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
         stm.setString(2, detail.getItemCode());
         stm.setBigDecimal(3, detail.getUnitPrice());
         stm.setInt(4, detail.getQty());
-
         return stm.executeUpdate()>0;*/
 
         return SQLUtil.execute("INSERT INTO OrderDetails (oid, itemCode, unitPrice, qty) VALUES (?,?,?,?)", detail.getOid(), detail.getItemCode(), detail.getUnitPrice(), detail.getQty());
@@ -26,8 +25,6 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
     public ArrayList<OrderDetailDTO> getAll() throws SQLException, ClassNotFoundException {
         return null;
     }
-
-
 
     @Override
     public void update(OrderDetailDTO customer) throws SQLException, ClassNotFoundException {

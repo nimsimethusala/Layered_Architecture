@@ -377,7 +377,7 @@ public class PlaceOrderFormController {
 
             boolean b2 = orderBo.saveOrder(orderId, orderDate, customerId);
             System.out.println("2" + b2);
-            if (b2) {
+            if (!b2) {
                 connection.rollback();
                 connection.setAutoCommit(true);
                 return false;
